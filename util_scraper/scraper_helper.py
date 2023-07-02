@@ -14,11 +14,9 @@ from time import localtime, strftime
 
 class scraper:
 
-    def __init__(self, county_id, st, et, page=0, final_page=0):
+    def __init__(self, county_id, page=0, final_page=0):
         self.county_id = county_id
         self.county_url = f'https://www.mobile01.com/topiclist.php?f={county_id}'
-        self.st = st
-        self.et = et
         self.save_path = f'scraped_result/{self.county_id}/'
         self.save_dt = strftime("%Y%m%d", localtime())
         file_name = self.save_path + f'topic_summary_{self.save_dt}.pkl'
@@ -43,7 +41,7 @@ class scraper:
 
             soup = BeautifulSoup(driver.page_source, 'html.parser')
             print('Start to sleep')
-            time.sleep(5)
+            self.sleep(5, random=True)
             print('End of sleeping')
         
             # Check final page
@@ -75,7 +73,7 @@ class scraper:
             
             self.page = p
             print('Start to sleep')
-            time.sleep(1+random.random()*10)
+            self.sleep(1, random=True)
             print('End of sleeping')
         driver.close()
         
@@ -127,7 +125,7 @@ class scraper:
             content_df.to_pickle(filename)
             start_page +=1
             print('Start to sleep')
-            time.sleep(3+random.random()*10)
+            self.sleep(3, random=True)
             print('End of sleeping')
         driver.close()
         
@@ -190,7 +188,7 @@ class scraper:
             driver.get(url)
         except:
             print('Fail to get url, will try to get again in 300s.')
-            time.sleep(300)
+            self.sleep(300, random=False)
             driver.get(url)
 
     def get_topic_urls(self, soup):
@@ -216,4 +214,14 @@ class scraper:
             final_page = page_list[-1].text
         return int(final_page)
 
-
+    def sleep(self, t, random=True):
+        if random:
+            r = random.random()
+            if r<=0.5:
+                time.sleep(t+random.random()*5)
+            elif r<=0.9:
+                time.sleep(t+random.random()*20)
+            else:
+                time.sleep(t+random.random()*50)
+        else:
+            time.sleep(t)
