@@ -26,10 +26,9 @@ class scraper:
         self.county_url = f'https://www.mobile01.com/topiclist.php?f={county_id}'
         self.save_path = f'scraped_result/{self.county_id}/'
         self.save_dt = strftime("%Y%m%d", localtime())
-        self.__topic_summary_dict = {'url':[], 'title':[], 'first_post_time':[], 'last_post_time':[]}
+        self.__topic_summary_dict = {'url':[], 'title':[], 'first_post_time':[], 'last_post_time':[], 'cid':[]}
         self.__topic_content_dict = {'title':[], 'content':[], 'author':[], 'post_time':[], 'floor':[], 'cid':[]}
     
-
     def scrape_end2end(self)->None:
         '''
             Scrape threads of the county on the website end to end.
@@ -42,33 +41,37 @@ class scraper:
         topic_summary_df = topic_summary_df.sort_values(by='last_post_time', ascending=False)
         topic_summary_df = topic_summary_df.reset_index(drop=True)
         topic_summary_df = topic_summary_df[~topic_summary_df[['topic', 'url']].duplicated()]
+        self.__topic_summary_dict = topic_summary_df.to_dict('list')
         
         # scrape topic content and update self.topic_content_dict
         self.scrape_topic_by_urls(topic_summary_df=topic_summary_df)
     
-
-    def scrape_topic_by_urls(self, topic_summary_df:pd.DataFrame, file_name:str='None')->None:
+    def scrape_topic_by_urls(self, file_name_topic_summary:str='None', file_name_topic_content:str='None')->None:
         '''
             Scrape topic content by their urls. 
         '''
         
+        self.__topic_content_dict = self.check_parsed_files(file_name = file_name_topic_content, file_type='topic_content')
+        self.__topic_summary_dict = self.check_parsed_files(file_name = file_name_topic_summary, file_type='topic_summary')
+
+        topic_summary_df = self.topic_summary_df
         url_list = topic_summary_df['url'].tolist()
-        self.__topic_content_dict = self.check_parsed_files(file_name = file_name, file_type='topic_content')
         
         # Scrape topic content by its url.
         for ind, url in enumerate(url_list):
             
             print('parsing: ', topic_summary_df.iloc[ind]['title'])
-            self.scrape_topic(url = url, topic_content_dict=self.__topic_content_dict)
+            self.scrape_topic(url = url)
             
     
-    def scrape_topic(self, url:str, topic_content_dict:dict, start_page:int=1)->dict:
+    def scrape_topic(self, url:str, file_name_topic_content:str='None', start_page:int=1)->None:
         '''
             Scrape topic by pages and return topic_content_dict.
         '''
         
         driver = self.create_driver()
-        final_page = 1
+        final_page = start_page
+        self.__topic_content_dict = self.check_parsed_files(file_name = file_name_topic_content, file_type='topic_content')
         
         # Parse topic content from its first page to its final page.
         while start_page <= final_page:
@@ -81,7 +84,7 @@ class scraper:
             soup = BeautifulSoup(driver.page_source, 'html.parser')
             
             # If final page is not checked, then parse the final page of the threads of topic on the website.
-            if final_page == 1:
+            if final_page == start_page:
                 final_page = self.get_final_page(soup)
             
             # Parse topic content and update topic_content_dict
@@ -161,7 +164,6 @@ class scraper:
                     topic_content_dict['title'].append(title)
         return topic_content_dict
 
-
     def scrape_topic_summary(self, final_page=0, file_name:str='None')->None:
         '''
             Create a driver, scrape topic summaries and update self.topic_summary_dict.
@@ -215,7 +217,6 @@ class scraper:
             
         driver.close()
     
-
     def get_topic_summary(self, soup)->dict:
         '''
             Get topic summary and update self.topic_summary_dict.
@@ -229,9 +230,9 @@ class scraper:
             topic_summary_dict['title'].append(temp_topic[ind].text)
             topic_summary_dict['first_post_time'].append(temp_time[ind*2].text)
             topic_summary_dict['last_post_time'].append(temp_time[ind*2+1].text)
+            topic_summary_dict['cid'].append(self.county_id)
         return topic_summary_dict
-
-
+                    
     def get_final_page(self, soup)->int:
         '''
             Find the final page in a thread.
@@ -245,33 +246,37 @@ class scraper:
             
         return int(final_page)
     
-
     def check_parsed_files(self, file_name:str, file_type:str)->dict:
         '''
             Check whether to use self.topic_summary_dict/self.topic_content_dict or not.
         '''
-        
-        file_name = self.save_path + file_name
-        
+        file_path = self.save_path + file_name
         if file_type == 'topic_summary':
-            if not os.path.exists(file_name):
+            if file_name == 'None':
                 result_dict = self.__topic_summary_dict
+            elif not os.path.exists(file_path):
+                raise ValueError(f"No such file:{file_path}")
             else :
-                result_df = pd.read_pickle(file_name)
+                result_df = pd.read_pickle(file_path)
+                if str(result_df['cid'].iloc[0]) != str(self.county_id):
+                    raise ValueError(f"Please check the county_id. Initialized cid is not equal to the cid in file:{file_name}")
                 result_dict = result_df.to_dict('list')
                 
         elif file_type == 'topic_content':
-            if not os.path.exists(file_name):
+            if file_name == 'None':
                 result_dict = self.__topic_content_dict
+            elif not os.path.exists(file_path):
+                raise ValueError(f"No such file:{file_path}")
             else :
-                result_df = pd.read_pickle(file_name)
+                result_df = pd.read_pickle(file_path)
+                if str(result_df['cid'].iloc[0]) != str(self.county_id):
+                    raise ValueError(f"Please check the county_id. Initialized cid is not equal to the cid in file:{file_name}")
                 result_dict = result_df.to_dict('list')
         else:
             raise ValueError("file_type can only be either 'topic_summary' or 'topic_content'.")
         
         return result_dict
     
-
     def create_driver(self):
         '''
             Create a driver with option arguments.
@@ -287,7 +292,6 @@ class scraper:
         
         return driver
 
-
     def try_get_url(self, driver, url:str)->None:
         '''
             Get url by driver. Try again after 300s if it fails. 
@@ -298,7 +302,6 @@ class scraper:
             print('Fail to get url, will try to get again in 300s.')
             self.sleep(300, random_time=False)
             driver.get(url)
-
 
     def sleep(self, t, random_time=True)->None:
         '''
@@ -314,22 +317,18 @@ class scraper:
                 time.sleep(t+random.random()*50)
         else:
             time.sleep(t)
-
-
+            
     @property
     def topic_summary_df(self):
         return pd.DataFrame(self.__topic_summary_dict)
     
-
     @property
     def topic_content_df(self):
         return pd.DataFrame(self.__topic_content_dict)
     
-
     @property
     def topic_summary_dict(self):
         return self.__topic_summary_dict
-    
     
     @property
     def topic_content_dict(self):
