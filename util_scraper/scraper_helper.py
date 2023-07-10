@@ -24,7 +24,7 @@ class scraper:
         
         self.county_id = county_id
         self.county_url = f'https://www.mobile01.com/topiclist.php?f={county_id}'
-        self.save_path = f'scraped_result/{self.county_id}/'
+        self.save_path = f'result/scraped_result/{self.county_id}/'
         self.save_dt = strftime("%Y%m%d", localtime())
         self.__topic_summary_dict = {'url':[], 'title':[], 'first_post_time':[], 'last_post_time':[], 'cid':[]}
         self.__topic_content_dict = {'title':[], 'content':[], 'author':[], 'post_time':[], 'floor':[], 'cid':[]}
