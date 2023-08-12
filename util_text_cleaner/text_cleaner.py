@@ -1,40 +1,72 @@
-import pandas as pd
+import jieba
 import numpy as np
+import pandas as pd
 import re
-from jieba import lcut
 import yaml
 
-class text_cleaner:
-    
-    def __init__(self, config_loc:str='util_text_cleaner/config.yaml')->None:
+
+
+class TextCleaner:
+    '''
+        Clean text for future analysis.
+    '''
+    def __init__(self, config_loc:str = 'util_text_cleaner/config.yaml') -> None:
+        
+        # load config
         self.config_loc = config_loc
         with open(config_loc, 'r') as stream:
             config = yaml.load(stream, Loader = yaml.FullLoader)
         self.replace_dict = config['replace_dict']
         
-    def replace_text(self, col:pd.Series)->pd.Series:
+    def replace_text(self, col:pd.Series) -> pd.Series:
+        '''
+            replace words in replace_dict. 
+        '''
         new_col = col.str.lower()
-        new_col = col.replace(self.replace_dict, regex=True)
+        new_col = col.replace(self.replace_dict, regex = True)
         return new_col
 
-    def clean_text(self, col:pd.Series)->pd.Series:
+    def clean_text(self, col:pd.Series) -> pd.Series:
+        '''
+            clean text.
+        '''
         
+        # replace words
         new_col = self.replace_text(col)
-        new_col = new_col.replace('[A-Za-z]+大', ' name ', regex=True)
-        new_col = new_col.replace('[A-Za-z]+君', ' name ', regex=True)
+        
+        # delete names
+        new_col = new_col.replace('[A-Za-z]+大', ' name ', regex = True)
+        new_col = new_col.replace('[A-Za-z]+君', ' name ', regex = True)
         new_col = new_col.replace('name', '')
-        new_col = new_col.replace('[^\w!?！？]', ' ',  regex=True)
-        new_col = new_col.replace('\s+', ' ',  regex=True)
+        
+        # delete symbols
+        new_col = new_col.replace('[^\w!?！？]', ' ',  regex = True)
+        new_col = new_col.replace('\s+', ' ',  regex = True)
+        
+        # strip words
+        new_col = new_col.str.strip()
         return new_col
 
-    def to_corpus(self, col:pd.Series)->pd.Series:
-        
+    def to_corpus(self, col:pd.Series) -> pd.Series:
+        '''
+            From cut to corpos
+        '''
         corpus_col = ' '.join(col)
         return corpus_col
     
     def lcut_to_corpus(self, col:pd.Series)->pd.Series:
+        '''
+            From text to corpus
+        '''
         
-        new_col = col.apply(lambda x : jieba.lcut(x))
-        corpus_col = ' '.join(new_col)
-        return corpus_col
-    
+        # load dictionary
+        jieba.load_userdict('util_text_cleaner/add_words.txt')
+        jieba.set_dictionary('util_text_cleaner/dict.txt')
+        
+        # cut words
+        cut_col = col.apply(lambda x : jieba.lcut(x))
+        
+        # generate corpos
+        corpus_col = list(map(lambda x: ' '.join(x), cut_col))
+        return cut_col, corpus_col
+   
