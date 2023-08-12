@@ -1,4 +1,4 @@
-# import package
+# import packages
 
 import argparse
 import logging
@@ -9,15 +9,15 @@ from time import localtime, strftime
 import yaml
 from util_scraper.scraper_helper import scraper
 import requests
-import ssl 
+# import ssl 
 
 LOGGER = logging.getLogger(__name__)
 
 if __name__ == '__main__':
-    ssl._create_default_https_context = ssl._create_unverified_context
+#     ssl._create_default_https_context = ssl._create_unverified_context
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--county', required=True, default='Taipei', help='Which county you want to crawl from mobile01.com?')
-    parser.add_argument('-r', '--run', required=True, choices=['scrape_end2end', 'scrape_topic_summary', 'scrape_topic_by_urls', 'scrape_topic'], help='Which function you want to run. Please see read me for more details.')
+    parser.add_argument('-r', '--run', required=True, choices=['scrape_end2end', 'scrape_topic_summary', 'scrape_topic_by_urls', 'scrape_topic'], help='Which function you want to run. Please see ReadMe for more details.')
     parser.add_argument('-ts', '--topic_summary', required=False, default='None', help='The topic_summary.pkl that you want to keep scraping.')
     parser.add_argument('-fp', '--final_page', required=False, default='0', help='The final page you want to keep scraping topic_summary with.')
     parser.add_argument('-tc', '--topic_content', required=False, default='None', help='The topic_content.pkl that you want to keep scraping.')
