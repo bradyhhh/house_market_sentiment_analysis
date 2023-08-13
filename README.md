@@ -3,7 +3,7 @@
 This project involves analyzing sentiment in the Taiwanese housing market using data collected from one of the largest online forums in Taiwan, [Mobile01](https://www.mobile01.com/).<br>
 
 The project is divided into four parts:
-1. Scraping discussions from Mobile01.
+1. Scraping discussion threads from Mobile01.
 2. Pre-training a word2vector model for generating word2vec features.
 3. Training an xgboost model to predict public sentiment.
 4. Evaluating results.
@@ -11,7 +11,7 @@ The project is divided into four parts:
 <br>
 <br>
 
-## 1. Scrape discussions from Mobile01
+## 1. Scrape discussion threads from Mobile01
 I utilize `web_scraper.py` to extract threads from Mobile01. This process involves using tools such as [Selenium](https://www.selenium.dev/) and [undetected driver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) for web scraping, and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for parsing the results. Prior to running the script, ensure you have these tools available. __It's worth noting that changes in Mobile01's website structure may lead to issues or unexpected results__. If you encounter any problems, please inform me.
 
 <br>
