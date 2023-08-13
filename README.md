@@ -12,7 +12,7 @@ The project is divided into four parts:
 <br>
 
 ## 1. Scrape discussions from Mobile01
-I utilize `web_scraper.py` to extract threads from Mobile01. This process involves using tools such as [Selenium](https://www.selenium.dev/) and [undetected driver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) for web scraping, and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for parsing the results. Prior to running the script, ensure you have these tools available. It's worth noting that changes in Mobile01's website structure may lead to issues or unexpected results. If you encounter any problems, please inform us.
+I utilize `web_scraper.py` to extract threads from Mobile01. This process involves using tools such as [Selenium](https://www.selenium.dev/) and [undetected driver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) for web scraping, and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for parsing the results. Prior to running the script, ensure you have these tools available. __It's worth noting that changes in Mobile01's website structure may lead to issues or unexpected results__. If you encounter any problems, please inform me.
 
 <br>
 
