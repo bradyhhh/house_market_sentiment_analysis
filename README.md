@@ -211,6 +211,36 @@ array([[251, 114,  36],
 
 The model achieves a weighted F1 score of 0.72 and an accuracy of 0.72.
 
+<br>
+
+Negative sentiment prediction:
+```
+test[y_pred == 0].sample(1)['content'].values
+```
+
+Output
+
+```
+array([' 今天張教授出來說話了，"今年第四季大幅下滑"，姑且不論正確與否以現在的房價跟薪水不成正比，反正買也買不起，不如再等  '],
+      dtype=object)
+```
+
+<br>
+
+Positive sentiment prediction:
+```
+test[y_pred == 2].sample(1)['content'].values
+```
+
+Output
+
+```
+array(['身邊的親朋好友一直告訴我房價要崩盤了，讓我等了好幾年今年小孩大了，等不下去還是換房了等這麼多年，讓我多花了二百'],
+      dtype=object)
+```
+
+<br>
+
 
 ## 4. Evaluate results
 
