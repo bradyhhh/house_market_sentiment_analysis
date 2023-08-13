@@ -1,6 +1,6 @@
 # House_market_sentiment_analysis
 
-This project involves analyzing sentiment in the Taiwanese housing market using data collected from one of the largest online forums in Taiwan, [Mobile01](https://www.mobile01.com/).<br>
+This project involves analyzing sentiment in the Taiwanese house market using data collected from one of the largest online forums in Taiwan, [Mobile01](https://www.mobile01.com/).<br>
 
 The project is divided into four parts:
 1. Scrape discussion threads from Mobile01.
