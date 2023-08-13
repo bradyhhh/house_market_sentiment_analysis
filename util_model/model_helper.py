@@ -148,7 +148,9 @@ class OptimizedXGB(BaseEstimator, ClassifierMixin):
         _space = self.__custom_params_space
         
         if isinstance(cv, float) : 
-            
+            if ((cv <= 0) | (cv >=1)):
+                raise ValueError('percentage cv should (0, 1).')
+                
             # Split train into train/validation
             X_train, X_val, Y_train, Y_val = train_test_split(train, y_train, test_size = cv, stratify = y_train, random_state = self.__random_state)
             gen_input_train = GenInput(k = 3000, standardized = True, fillna = False)
