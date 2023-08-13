@@ -58,7 +58,7 @@ For improved performance, several steps are implemented before the final word se
     
 2. Self-Defined Dictionary for Taiwanese House Market:
 
-    - To improve sentence segmentation accuracy, I've added new terms to a self-defined dictionary after reviewing default segmentation results repeatedly. Please refer to `util_text_cleaner/add_words.txt` for the self-defined dictionary and u`til_text_cleaner/dict.txt` for the Jieba default dictionary.
+    - To improve sentence segmentation accuracy, I've added new terms to a self-defined dictionary after reviewing default segmentation results repeatedly. Please refer to `util_text_cleaner/add_words.txt` for the self-defined dictionary and `util_text_cleaner/dict.txt` for the Jieba default dictionary.
 
 <br>
 
