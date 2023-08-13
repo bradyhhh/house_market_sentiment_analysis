@@ -1,5 +1,3 @@
-# import packages
-
 import argparse
 import logging
 import os
@@ -14,6 +12,7 @@ import requests
 LOGGER = logging.getLogger(__name__)
 
 if __name__ == '__main__':
+    
 #     ssl._create_default_https_context = ssl._create_unverified_context
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--county', required=True, default='Taipei', help='Which county you want to crawl from mobile01.com?')

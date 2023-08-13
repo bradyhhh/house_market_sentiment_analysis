@@ -49,9 +49,13 @@ if __name__ == '__main__':
     test = data[~data.index.isin(train.index)]
     print(f'Size of train: {train.shape[0]}')
     print(f'Size of test: {test.shape[0]}')
-    
     y_train = train['label']
     y_test = test['label']
+
+    # save training and test 
+    train.to_pickle('data/training_data.pkl')
+    test.to_pickle('data/test_data.pkl')
+    
     
     result = defaultdict(dict)
     xgb_model = OptimizedXGB(random_state=random_state)
@@ -59,7 +63,6 @@ if __name__ == '__main__':
     
     y_pred = xgb_model.predict(test)
     f1 = f1_score(y_test, y_pred, average = 'weighted')
-    cm = confusion_matrix(y_test, y_pred)
 
     print(f'Best parameters : {xgb_model.best_params}')
     print(f'f1 : {f1}')
