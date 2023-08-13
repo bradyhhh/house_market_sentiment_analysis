@@ -9,9 +9,12 @@ The project is divided into four parts:
 4. Evaluating results.
 
 <br>
+<br>
 
 ## 1. Scrape discussions from Mobile01
-I utilize `web_scraper.py` to extract threads from Mobile01. This process involves using tools such as [Selenium](https://www.selenium.dev/) and [undetected driver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) for web scraping, and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for parsing the results. Prior to running the script, ensure you have these tools available. It's worth noting that changes in Mobile01's website structure may lead to issues or unexpected results. If you encounter any problems, please inform us.<br>
+I utilize `web_scraper.py` to extract threads from Mobile01. This process involves using tools such as [Selenium](https://www.selenium.dev/) and [undetected driver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) for web scraping, and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for parsing the results. Prior to running the script, ensure you have these tools available. It's worth noting that changes in Mobile01's website structure may lead to issues or unexpected results. If you encounter any problems, please inform us.
+
+<br>
 
 There are 6 arguments within the web_scraper function:
 
@@ -29,6 +32,7 @@ There are 6 arguments within the web_scraper function:
 5. `topic_content`: Specify the file to store scraped results of sub-discussion threads. If set to `None`, scrape_topic_by_urls will write files in the latest __result/scraped_result/`county_code`/topic_content_yyyymmdd.pkl__ location. Refer to util_scraper/config.yaml for county codes.
 6. `start_page`: For `scrape_topic_by_urls`, scraping starts from the first page to the last. You can specify a starting page for the function.
 
+<br>
 <br>
 
 ## 2. Pre-train a word2Vector model
@@ -62,13 +66,15 @@ For improved performance, several steps are implemented before the final word se
 
 After performing Jieba word segmentation, I train a word embedding model that converts each term into a `300-dimensional` vector. Word embedding is a technique that maps terms to real-number vectors. I employ [Word2vector](https://en.wikipedia.org/wiki/Word2vec) to accomplish this, which is a neural network model that considers multiple corpora and uses the term and its surrounding context terms to create a high-dimensional vector. Terms with similar meanings tend to be located closely in this vector space.
 
-To train a suitable Word2Vec model for public sentiment related to the housing market, I use 2M+ text data, including all posts from the Mobile01 real estate discussion boards and housing market news from [UDN (聯合新聞網)](https://house.udn.com/house/index). The gensim package is utilized to train a Continuous Bag of Words (CBOW) Word2Vec model in this project.<br><br>
+To train a suitable Word2Vec model for public sentiment related to the housing market, I use 2M+ text data, including all posts from the Mobile01 real estate discussion boards and housing market news from [UDN (聯合新聞網)](https://house.udn.com/house/index). The gensim package is utilized to train a Continuous Bag of Words (CBOW) Word2Vec model in this project.
 
-__Training result__
+<br>
+
+### __Training result__
 
 Examples of similar words:
 
-For 彭淮南 (Former central bank president in Taiwan):
+For `彭淮南` (Former central bank president in Taiwan):
 ```
 # encoding=utf-8
 
@@ -88,7 +94,7 @@ Output
 
 <br>
 
-For 房價 (House price):
+For `房價` (House price):
 ```
 model300.wv.most_similar('房價', topn=5)
 ```
@@ -103,7 +109,7 @@ Output
 
 <br>
 
-For 看衰 (Depreciation anticipation):
+For `看衰` (Depreciation anticipation):
 ```
 model300.wv.most_similar('看衰', topn=5)
 ```
@@ -118,7 +124,7 @@ Output
 
 <br>
 
-For 上揚(Appreciation anticipation):
+For `飆漲` (Appreciation anticipation):
 ```
 model300.wv.most_similar('飆漲', topn=5)
 ``` 
@@ -130,9 +136,11 @@ Output
  ('上漲', 0.7787458300590515),
  ('狂漲', 0.769774854183197)]
 ```
+<br>
+<br>
 
 ## 3. Train a xgboost model to predict sentiments
-In `train_xgb.py`, I employ an XGBoost classifier with hyperparameter tuning using Hyperopt to construct an automated machine learning (AutoML) model for predicting the sentiment of posts in the house market. The script consists of 2 main parts: <br>
+In `train_xgb.py`, I employ an XGBoost classifier with hyperparameter tuning using Hyperopt to construct an automated machine learning (AutoML) model for predicting the sentiment of posts in the house market. The script consists of 2 main parts: 
 
 1. Preprocess
 2. Model Training 
@@ -152,8 +160,12 @@ The preprocessing stage involves 2 primary steps, resulting in a total of 3300 f
     - Each post is segmented using the 1-5 gram method. ([N-gram](https://en.wikipedia.org/wiki/N-gram) involves segmenting sentences based on the sequential relationships between words. For instance, a 2-gram (bigram) technique divides a sentence into pairs of adjacent words.)
     - I employ [chi-square feature selection](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html) to select the 3000 most informative terms. For each selected term, a binary feature is generated, which takes the value 1 if a post contains the term and 0 otherwise.
 
+<br>
+
 ### __Model Training__
-In this section, I build an XGBoost classifier using Hyperopt for hyperparameter tuning and cross-validation. <br>
+In this section, I build an XGBoost classifier using Hyperopt for hyperparameter tuning and cross-validation. 
+
+<br>
 
 The `OptimizedXGB` class can be created with a `custom_params_space` parameter, which allows setting a custom tuning parameter space. If set to `None`, a default parameter space is utilized. Refer to `util_model/model_helper.py` for more details.
 
@@ -162,7 +174,6 @@ When calling the `fit` function, you can set cv = StratifiedKFold to use a pre-d
 <br>
 
 ### __Training Result__
-<br>
 
 F1 score and Accuracy
 
