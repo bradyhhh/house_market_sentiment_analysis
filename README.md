@@ -3,10 +3,10 @@
 This project involves analyzing sentiment in the Taiwanese housing market using data collected from one of the largest online forums in Taiwan, [Mobile01](https://www.mobile01.com/).<br>
 
 The project is divided into four parts:
-1. Scraping discussion threads from Mobile01.
-2. Pre-training a word2vector model for generating word2vec features.
-3. Training an xgboost model to predict public sentiment.
-4. Evaluating results.
+1. Scrape discussion threads from Mobile01.
+2. Pre-train a word2vector model for generating word2vec features.
+3. Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market.
+4. Evaluate results.
 
 <br>
 <br>
@@ -139,7 +139,7 @@ Output
 <br>
 <br>
 
-## 3. Train a xgboost model to predict sentiments
+## 3. Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market
 In `train_xgb.py`, I employ an XGBoost classifier with hyperparameter tuning using Hyperopt to construct an automated machine learning (AutoML) model for predicting the sentiment of posts in the house market. The script consists of 2 main parts: 
 
 1. Preprocess
@@ -212,6 +212,6 @@ array([[251, 114,  36],
 The model achieves a weighted F1 score of 0.72 and an accuracy of 0.72.
 
 
-## 4. Evaluating results
+## 4. Evaluate results
 
 Please refer `Sentiment_Prediction_in_Taiwan.ipynb` for more details.
