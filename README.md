@@ -42,7 +42,7 @@ In `train_word2vec.py`, there are 2 main steps:
 1. Text Cleaning and Sentence Segementation using [`jieba`](https://github.com/fxsjy/jieba)
 2. Word2Vec Model Training using [`Gensim`](https://radimrehurek.com/gensim/index.html)
 
-Before running the script, please ensure that you have these tools available. Also, model file and training data are not uploaded due to their large sizes.
+Before running the script, please ensure that you have these tools available. Also, the model file and training data are not uploaded due to their large sizes.
 <br>
 
 ### __Text Cleaning and Word Segmentation__
@@ -144,7 +144,7 @@ In `train_xgb.py`, I employ an XGBoost classifier with hyperparameter tuning usi
 1. Preprocess
 2. Model Training 
 
-Before running the script, please ensure that you have [`scikit-learn`](https://scikit-learn.org/stable/index.html), [`xgboost`](https://xgboost.readthedocs.io/en/stable/#),  [`hyperopt`](http://hyperopt.github.io/hyperopt/) available. Also, model file and training data are not uploaded due to their large sizes.
+Before running the script, please ensure that you have [`scikit-learn`](https://scikit-learn.org/stable/index.html), [`xgboost`](https://xgboost.readthedocs.io/en/stable/#),  [`hyperopt`](http://hyperopt.github.io/hyperopt/) available. Also, the model file and training data are not uploaded due to their large sizes.
 
 <br>
 
