@@ -3,10 +3,10 @@
 This project involves analyzing sentiment in the Taiwanese house market using data collected from one of the largest online forums in Taiwan, [Mobile01](https://www.mobile01.com/).<br>
 
 The project is divided into four parts:
-1. Scrape discussion threads from Mobile01.
-2. Pre-train a word2vector model for generating word2vec features.
-3. Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market.
-4. Evaluate results.
+1. [Scrape discussion threads from Mobile01](#1-scrape-discussion-threads-from-mobile01)
+2. [Pre-train a word2vector model for generating word2vec features](#2-Pre-train-a-word2Vector-model)
+3. [Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market](#3-Train-an-autoML-xgboost-classifier-to-predict-public-sentiment-in-the-Taiwanese-house-market)
+4. [Evaluate results](#4-Evaluate-results)
 
 <br>
 <br>
