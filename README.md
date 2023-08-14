@@ -3,7 +3,7 @@
 This project involves analyzing sentiment in the Taiwanese house market using data collected from one of the largest online forums in Taiwan, [Mobile01](https://www.mobile01.com/).<br>
 
 The project is divided into four parts:
-1. Scrape discussion threads from Mobile01.
+1. [Scrape discussion threads from Mobile01](#1-scrape-discussion-threads-from-mobile01)
 2. Pre-train a word2vector model for generating word2vec features.
 3. Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market.
 4. Evaluate results.
@@ -11,7 +11,7 @@ The project is divided into four parts:
 <br>
 <br>
 
-## 1. Scrape discussion threads from Mobile01
+# 1. Scrape discussion threads from Mobile01
 I utilize `web_scraper.py` to extract threads from Mobile01. This process involves using tools such as [Selenium](https://www.selenium.dev/) and [undetected driver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) for web scraping, and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for parsing the results. Prior to running the script, ensure you have these tools available. __It's worth noting that changes in Mobile01's website structure may lead to issues or unexpected results__. If you encounter any problems, please inform me.
 
 <br>
@@ -35,7 +35,7 @@ There are 6 arguments within the web_scraper function:
 <br>
 <br>
 
-## 2. Pre-train a word2Vector model
+# 2. Pre-train a word2Vector model
 
 In `train_word2vec.py`, there are 2 main steps:
 
@@ -45,7 +45,7 @@ In `train_word2vec.py`, there are 2 main steps:
 Before running the script, please ensure that you have these tools available. Also, the model file and training data are not uploaded due to their large sizes.
 <br>
 
-### __Text Cleaning and Word Segmentation__
+## __Text Cleaning and Word Segmentation__
 
 For improved performance, several steps are implemented before the final word segmentation:
 
@@ -61,7 +61,7 @@ For improved performance, several steps are implemented before the final word se
 
 <br>
 
-### __Word2Vec Model Training__
+## __Word2Vec Model Training__
 
 After performing Jieba word segmentation, I train a word embedding model that converts each term into a `300-dimensional` vector. Word embedding is a technique that maps terms to real-number vectors. I employ [Word2vector](https://en.wikipedia.org/wiki/Word2vec) to accomplish this, which is a neural network model that considers multiple corpora and uses the term and its surrounding context terms to create a high-dimensional vector. Terms with similar meanings tend to be located closely in this vector space.
 
@@ -69,7 +69,7 @@ To train a suitable Word2Vec model for public sentiment related to the house mar
 
 <br>
 
-### __Training result__
+## __Training result__
 
 Examples of similar words:
 
@@ -138,7 +138,7 @@ Output
 <br>
 <br>
 
-## 3. Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market
+# 3. Train an autoML xgboost classifier to predict public sentiment in the Taiwanese house market
 In `train_xgb.py`, I employ an XGBoost classifier with hyperparameter tuning using Hyperopt to construct an automated machine learning (AutoML) model for predicting the sentiment of posts in the house market. The script consists of 2 main parts: 
 
 1. Preprocess
@@ -148,7 +148,7 @@ Before running the script, please ensure that you have [`scikit-learn`](https://
 
 <br>
 
-### __Preprocess__ 
+## __Preprocess__ 
 
 The preprocessing stage involves 2 primary steps, resulting in a total of 3300 features before entering the model.
 
@@ -172,7 +172,7 @@ When calling the `fit` function, you can set cv = StratifiedKFold to use a pre-d
 
 <br>
 
-### __Training Result__
+## __Training Result__
 
 F1 score and Accuracy
 
@@ -241,7 +241,7 @@ array([' 昨天開車去康橋周邊和龜山區的新重劃區繞了一圈，�
 <br>
 
 
-## 4. Evaluate results
+# 4. Evaluate results
 
 In this section, I compute sentiment ratios for different quarters, where <br>
 $$\text{Sentiment Ratio} = \frac{\text{Positive Sentiment} - \text{Negative Sentiment}}{\text{Positive Sentiment} + \text{Negative Sentiment}}$$, is obtained by comparing positive to negative sentiment counts.
