@@ -251,7 +251,7 @@ Subsequently, I correlate these sentiment ratios with house prices in Taipei fro
 <br>
 
 <img src="plot/sentiment_and_price_in_taipei.png">
-This figure shows Taipei's housing prices and sentiments. <br> <br>
+This figure shows housing prices and sentiments in Taipei between 2008 and 2018. <br> <br>
 
 Before 2015, the public sentiments were largely positive. However, between 2015 and 2016, the morale of the housing market started slumping. This pessimistic sentiment persisted until late 2017. At first glance, the patterns of the house prices and the sentiments seem correlated. The house prices grew exponentially before 2014 but have stagnated since 2014. __This apparent alignment suggests a potential relationship between house prices and public sentiments in Taipei.__ However, a more rigorous examination still has to be done to make any further causal inferences.
 
