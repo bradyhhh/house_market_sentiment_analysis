@@ -152,7 +152,7 @@ Before running the script, please ensure that you have [`scikit-learn`](https://
 
 The preprocessing stage involves 2 primary steps, resulting in a total of 3300 features before entering the model.
 
-1. __300 Word2vec feature__: As previously mentioned, I generate a 300-dimensional vector for each term. Consequently, each post is represented by a (n * 300) vector after the word2vec transformation. These vectors are then averaged along each dimension to produce a 1 * 300 vector for each post. Additionally, the 300 Word2Vec features are standardized based on the training set.
+1. __300 Word2vec feature__: As previously mentioned, I generate a 300-dimensional vector for each term. Consequently, each post is represented by a n * 300 vector after the word2vec transformation. These vectors are then averaged along each dimension to produce a 1 * 300 vector for each post. Additionally, the 300 Word2Vec features are standardized based on the training set.
 
 2. __3000 K-Best Features__: I utilize the N-gram technique and chi-square feature selection to generate 3000 K-best features.
 
@@ -243,8 +243,8 @@ array([' 昨天開車去康橋周邊和龜山區的新重劃區繞了一圈，�
 
 ## 4. Evaluate results
 
-In this section, I compute sentiment ratios for different quarters. The sentiment ratio, where <br>
-\( \text{Sentiment Ratio} = \frac{\text{Positive Sentiment} - \text{Negative Sentiment}}{\text{Positive Sentiment} + \text{Negative Sentiment}} \), is obtained by comparing positive to negative sentiment scores.
+In this section, I compute sentiment ratios for different quarters, where <br>
+$$\text{Sentiment Ratio} = \frac{\text{Positive Sentiment} - \text{Negative Sentiment}}{\text{Positive Sentiment} + \text{Negative Sentiment}}$$, is obtained by comparing positive to negative sentiment counts.
 
 Subsequently, I correlate these sentiment ratios with house prices in Taipei from 2009 to 2018. The house price data is sourced from [Sinyi Realty (信義房屋)](https://www.sinyinews.com.tw/quarterly?sinyisid=MjAyMzA4MTQxMTMxNTAzMTg=), which specifically focuses on residential property transactions. It provides one of the most representive house price index in Taiwan.
 
