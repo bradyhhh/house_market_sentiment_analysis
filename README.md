@@ -42,8 +42,7 @@ In `train_word2vec.py`, there are 2 main steps:
 1. Text Cleaning and Sentence Segementation using [`jieba`](https://github.com/fxsjy/jieba)
 2. Word2Vec Model Training using [`Gensim`](https://radimrehurek.com/gensim/index.html)
 
-Before running the script, please ensure that you have these tools available. 
-
+Before running the script, please ensure that you have these tools available. Also, model file and training data are not uploaded due to their large sizes.
 <br>
 
 ### __Text Cleaning and Word Segmentation__
@@ -66,7 +65,7 @@ For improved performance, several steps are implemented before the final word se
 
 After performing Jieba word segmentation, I train a word embedding model that converts each term into a `300-dimensional` vector. Word embedding is a technique that maps terms to real-number vectors. I employ [Word2vector](https://en.wikipedia.org/wiki/Word2vec) to accomplish this, which is a neural network model that considers multiple corpora and uses the term and its surrounding context terms to create a high-dimensional vector. Terms with similar meanings tend to be located closely in this vector space.
 
-To train a suitable Word2Vec model for public sentiment related to the housing market, I use 2M+ text data, including all posts from the Mobile01 real estate discussion boards and housing market news from [UDN (聯合新聞網)](https://house.udn.com/house/index). The gensim package is utilized to train a Continuous Bag of Words (CBOW) Word2Vec model in this project.
+To train a suitable Word2Vec model for public sentiment related to the housing market, I use 2M+ text data, including all posts from the Mobile01 real estate discussion boards and housing market news from [UDN (聯合新聞網)](https://house.udn.com/house/index). The gensim package is utilized to train a Continuous Bag of Words (CBOW) Word2Vec model in this project. 
 
 <br>
 
@@ -145,7 +144,7 @@ In `train_xgb.py`, I employ an XGBoost classifier with hyperparameter tuning usi
 1. Preprocess
 2. Model Training 
 
-Before running the script, please ensure that you have [`scikit-learn`](https://scikit-learn.org/stable/index.html), [`xgboost`](https://xgboost.readthedocs.io/en/stable/#),  [`hyperopt`](http://hyperopt.github.io/hyperopt/) available. 
+Before running the script, please ensure that you have [`scikit-learn`](https://scikit-learn.org/stable/index.html), [`xgboost`](https://xgboost.readthedocs.io/en/stable/#),  [`hyperopt`](http://hyperopt.github.io/hyperopt/) available. Also, model file and training data are not uploaded due to their large sizes.
 
 <br>
 
@@ -221,7 +220,7 @@ test[y_pred == 0].sample(1)['content'].values
 Output
 
 ```
-array([' 今天張教授出來說話了，"今年第四季大幅下滑"，姑且不論正確與否以現在的房價跟薪水不成正比，反正買也買不起，不如再等  '],
+array(['千萬不要買台灣房地產已經負成長了高雄又是人口負成長的前段班有錢人再撐沒錢人也在撐如果不是急著買屋真的不急用薪水來買現在的屋是最笨的現在薪水那麼低年輕人大部分都是沒能力購屋的一群買下去等著跌而已不是自己的錢不怕跌的就買而已'],
       dtype=object)
 ```
 
@@ -235,7 +234,7 @@ test[y_pred == 2].sample(1)['content'].values
 Output
 
 ```
-array(['身邊的親朋好友一直告訴我房價要崩盤了，讓我等了好幾年今年小孩大了，等不下去還是換房了等這麼多年，讓我多花了二百'],
+array([' 昨天開車去康橋周邊和龜山區的新重劃區繞了一圈，康橋鷹架已經全部拆除，正在整四周的退縮部分，已接近完工。Morrison 則剛剛架起第一棟的鋼構，順道去看一下一戶9000萬的別墅，外觀特別。A7周圍重劃區，靠文化一路左邊架起不少建案的大型廣告看板和接待中心，右邊則是幾家公司總部正在整地施工，中華郵政那塊地大的不像話，區域還沒有看過單一開案發地那麼大的。整個A7周邊看起來氣氛熱絡，未來榮景可期  '],
       dtype=object)
 ```
 
@@ -243,5 +242,19 @@ array(['身邊的親朋好友一直告訴我房價要崩盤了，讓我等了好
 
 
 ## 4. Evaluate results
+
+In this section, I compute sentiment ratios for different quarters. The sentiment ratio, where <br>
+\( \text{Sentiment Ratio} = \frac{\text{Positive Sentiment} - \text{Negative Sentiment}}{\text{Positive Sentiment} + \text{Negative Sentiment}} \), is obtained by comparing positive to negative sentiment scores.
+
+Subsequently, I correlate these sentiment ratios with house prices in Taipei from 2009 to 2018. The house price data is sourced from [Sinyi Realty (信義房屋)](https://www.sinyinews.com.tw/quarterly?sinyisid=MjAyMzA4MTQxMTMxNTAzMTg=), which specifically focuses on residential property transactions. It provides one of the most representive house price index in Taiwan.
+
+<br>
+
+<img src="plot/sentiment_and_price_in_taipei.png">
+This figure shows Taipei's housing prices and sentiments. <br> <br>
+
+The public sentiment Before 2015, sentiments were largely positive. However, between 2014 and 2016, the morale of the housing market started slumping. This pessimistic sentiment persisted until late 2017. At first glance, the patterns of the house prices and the sentiments seem correlated. The house prices grew exponentially before 2014 but have stagnated since 2014. __This apparent alignment suggests a potential relationship between house prices and public sentiments in Taipei.__ However, a more rigorous examination has to be done to make any further causal inferences.
+
+<br>
 
 Please refer `Sentiment_Prediction_in_Taiwan.ipynb` for more details.
