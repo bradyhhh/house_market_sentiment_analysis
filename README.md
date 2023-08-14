@@ -65,7 +65,7 @@ For improved performance, several steps are implemented before the final word se
 
 After performing Jieba word segmentation, I train a word embedding model that converts each term into a `300-dimensional` vector. Word embedding is a technique that maps terms to real-number vectors. I employ [Word2vector](https://en.wikipedia.org/wiki/Word2vec) to accomplish this, which is a neural network model that considers multiple corpora and uses the term and its surrounding context terms to create a high-dimensional vector. Terms with similar meanings tend to be located closely in this vector space.
 
-To train a suitable Word2Vec model for public sentiment related to the housing market, I use 2M+ text data, including all posts from the Mobile01 real estate discussion boards and housing market news from [UDN (聯合新聞網)](https://house.udn.com/house/index). The gensim package is utilized to train a Continuous Bag of Words (CBOW) Word2Vec model in this project. 
+To train a suitable Word2Vec model for public sentiment related to the house market, I use 2M+ text data, including all posts from the Mobile01 real estate discussion boards and house market news from [UDN (聯合新聞網)](https://house.udn.com/house/index). The gensim package is utilized to train a Continuous Bag of Words (CBOW) Word2Vec model in this project. 
 
 <br>
 
@@ -251,9 +251,9 @@ Subsequently, I correlate these sentiment ratios with house prices in Taipei fro
 <br>
 
 <img src="plot/sentiment_and_price_in_taipei.png">
-This figure shows housing prices and sentiments in Taipei between 2008 and 2018. <br> <br>
+This figure shows house prices and sentiments in Taipei between 2008 and 2018. <br> <br>
 
-Before 2015, the public sentiments were largely positive. However, between 2015 and 2016, the morale of the housing market started slumping. This pessimistic sentiment persisted until late 2017. At first glance, the patterns of the house prices and the sentiments seem correlated. The house prices grew exponentially before 2014 but have stagnated since 2014. __This apparent alignment suggests a potential relationship between house prices and public sentiments in Taipei.__ However, a more rigorous examination still has to be done to make any further causal inferences.
+Before 2015, the public sentiments were largely positive. However, between 2015 and 2016, the morale of the house market started slumping. This pessimistic sentiment persisted until late 2017. At first glance, the patterns of the house prices and the sentiments seem correlated. The house prices grew exponentially before 2014 but have stagnated since 2014. __This apparent alignment suggests a potential relationship between house prices and public sentiments in Taipei.__ However, a more rigorous examination still has to be done to make any further causal inferences.
 
 <br>
 
