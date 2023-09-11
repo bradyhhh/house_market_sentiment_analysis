@@ -208,7 +208,9 @@ array([[251, 114,  36],
        [ 64, 102, 241]])
 ```
 
-The model achieves a weighted F1 score of 0.72 and an accuracy of 0.72.
+The confusion matrix shows that while the model performs better at seperating negative and positive sentiments, 
+the performance of seperating netrual and positive/negative sentiments can be improved.
+The model achieves a weighted F1 score of 0.7196 and an accuracy of 0.7237.
 
 <br>
 
