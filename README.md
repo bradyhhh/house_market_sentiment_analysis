@@ -30,8 +30,23 @@ There are 6 arguments within the web_scraper function:
 3. `topic_summary`: Specify the file to parse topic summaries or to save scraped results. If set to `None`, `scrape_topic_by_urls` and `scrape_topic_summary` will read/write files in the latest __result/scraped_result/`county_code`/topic_summary_yyyymmdd.pkl__ location. Refer to util_scraper/config.yaml for county codes.
 4. `final_page`: For `scrape_topic_summary`, scraping occurs from the last page to the first. You can specify a starting page for the function.
 5. `topic_content`: Specify the file to store scraped results of sub-discussion threads. If set to `None`, scrape_topic_by_urls will write files in the latest __result/scraped_result/`county_code`/topic_content_yyyymmdd.pkl__ location. Refer to util_scraper/config.yaml for county codes.
-6. `start_page`: For `scrape_topic_by_urls`, scraping starts from the first page to the last. You can specify a starting page for the function.
+6. `start_page`: For `scrape_topic_by_urls`, scraping starts from the first page to the last. You can specify a starting page for the function.<br><br>
 
+
+Below is the schema outlining the parsing results:
+
+- __topic_summary__:
+    - `url`: URL of the sub-discussion
+    - `title`: Title of the sub-discussion
+    - `first_post_time`: Time of the first post in the sub-discussion
+    - `last_post_time`: Time of the last post in the sub-discussion
+- __topic_content__:
+    - `title`: Ttitle of the sub-discussion
+    - `content`: Content of the thread
+    - `author`: Author of the thread	
+    - `post_time`: Post time of the thread
+    - `floor`: The post number of the thread
+    - `cid`: Country ID
 <br>
 <br>
 
