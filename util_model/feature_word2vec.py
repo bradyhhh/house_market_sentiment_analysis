@@ -52,3 +52,4 @@ class FeatureWord2Vec:
     @property
     def word2vec_size(self) -> int:
         return self.__Word2Vec_size
+    
