@@ -63,4 +63,3 @@ if __name__ == '__main__':
                 s.scrape_topic(url=url, file_name_topic_content=file_name_topic_content, start_page=start_page)
                 print('********Finished********')
                     
-                

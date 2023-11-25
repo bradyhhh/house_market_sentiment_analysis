@@ -320,3 +320,4 @@ class SelfDefinedMetric:
         y_pred = np.argmax(y_pred, axis = 1)
         err = 1 - f1_score(y_true, y_pred, average = 'weighted')
         return err
+    

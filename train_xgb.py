@@ -70,4 +70,3 @@ if __name__ == '__main__':
     filename = 'result/model_result/xgb_model3.pkl'
     pickle.dump(xgb_model, open(filename, 'wb'))
     print('Model_saved!')
-    
